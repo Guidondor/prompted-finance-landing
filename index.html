@@ -582,6 +582,30 @@
     border-top: 1px solid var(--border);
   }
 
+  /* ── ABOUT single col ── */
+  .about-inner {
+    grid-template-columns: 1fr !important;
+    max-width: 680px;
+  }
+
+  /* ── LIVE PROOF ── */
+  .hero-proof {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+  .hero-proof a { color: var(--accent); text-decoration: none; }
+  .hero-proof a:hover { text-decoration: underline; }
+  .live-pulse {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    animation: livepulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
   /* ── SUCCESS MSG ── */
   .success-msg {
     display: none;
@@ -627,6 +651,7 @@
   </form>
   <p class="hero-note success-msg" id="hero-success">✓ You're in. Check your inbox.</p>
   <p class="hero-note">// No spam. Unsubscribe anytime.</p>
+  <div class="hero-proof"><span class="live-pulse"></span> Issue #01 is live — <a href="#">read it →</a></div>
   <div class="hero-stats">
     <div class="stat-item">
       <span class="stat-num">5min</span>
@@ -707,13 +732,6 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="about-inner">
-    <div>
-      <div class="about-avatar">
-        <div class="avatar-icon">🧠</div>
-        <span style="color: var(--muted); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase;">Founder</span>
-        <span style="color: var(--text); font-size: 13px; font-weight: 500;">Prompted Finance</span>
-      </div>
-    </div>
     <div class="about-content">
       <p class="section-tag">// about</p>
       <h2 class="section-title">Why I built <em>this</em></h2>
@@ -731,7 +749,6 @@
           // If you can ask an AI to write your emails,<br/>you can ask it to fix your finances.
         </p>
       </div>
-    </div>
   </div>
 </section>
 
