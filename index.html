@@ -883,12 +883,22 @@
 </footer>
 
 <script>
-function handleSubscribe(e, successId) {
+async function handleSubscribe(e, successId) {
   e.preventDefault();
   const form = e.target;
-  const success = document.getElementById(successId);
+  const email = form.querySelector('input[type="email"]').value;
+  const btn = form.querySelector('button');
+  btn.disabled = true;
+  btn.textContent = 'Subscribing...';
+  try {
+    await fetch('https://app.kit.com/forms/9335297/subscriptions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email_address: email }),
+    });
+  } catch (_) {}
   form.style.display = 'none';
-  success.style.display = 'block';
+  document.getElementById(successId).style.display = 'block';
 }
 </script>
 </body>
