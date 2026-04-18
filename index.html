@@ -891,12 +891,16 @@ async function handleSubscribe(e, successId) {
   btn.disabled = true;
   btn.textContent = 'Subscribing...';
   try {
-    await fetch('https://app.kit.com/forms/9335297/subscriptions', {
+    const body = new URLSearchParams({ email_address: email });
+    const res = await fetch('https://app.kit.com/forms/9335297/subscriptions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email_address: email }),
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString(),
     });
-  } catch (_) {}
+    console.log('Kit response:', res.status, await res.text());
+  } catch (err) {
+    console.error('Kit error:', err);
+  }
   form.style.display = 'none';
   document.getElementById(successId).style.display = 'block';
 }
