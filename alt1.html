@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Prompted Finance — AI × Your Money</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:    #faf8f3;
+  --bg2:   #f3ede2;
+  --bg3:   #e9e1d3;
+  --ink:   #1c1612;
+  --ink2:  #3d3028;
+  --muted: #897a6c;
+  --accent:  #b8963e;
+  --accent2: #9a7d2e;
+  --border:  rgba(28,22,18,0.1);
+  --border2: rgba(28,22,18,0.18);
+  --serif: 'Playfair Display', Georgia, serif;
+  --body:  'Lora', Georgia, serif;
+  --mono:  'IBM Plex Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-weight: 400; line-height: 1.7; overflow-x: hidden; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: var(--bg); border-bottom: 1px solid var(--border2);
+}
+.logo { font-family: var(--serif); font-size: 15px; font-weight: 700; font-style: italic; color: var(--ink); text-decoration: none; letter-spacing: 0.02em; }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-cta { background: var(--accent) !important; color: white !important; padding: 0.45rem 1.1rem; font-weight: 600; }
+.nav-cta:hover { background: var(--accent2) !important; }
+
+/* HERO */
+.hero { min-height: 100vh; padding: 9rem 3rem 5rem; display: flex; flex-direction: column; justify-content: center; border-bottom: 1px solid var(--border2); }
+.hero-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: flex; align-items: center; gap: 1rem; margin-bottom: 2rem; }
+.hero-eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--accent); }
+.hero-eyebrow a { color: var(--accent); text-decoration: none; }
+.hero-eyebrow a:hover { text-decoration: underline; }
+.hero-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 5rem; align-items: start; max-width: 1200px; }
+.hero h1 { font-family: var(--serif); font-size: clamp(3.2rem, 6vw, 5.5rem); line-height: 1.08; font-weight: 700; margin-bottom: 2rem; }
+.hero h1 em { font-style: italic; color: var(--accent); }
+.hero-right { padding-top: 0.5rem; display: flex; flex-direction: column; gap: 1.8rem; }
+.hero-sub { font-family: var(--body); font-size: 1.05rem; color: var(--ink2); line-height: 1.85; border-left: 2px solid var(--accent); padding-left: 1.2rem; }
+.hero-form { display: flex; flex-direction: column; gap: 0.6rem; }
+.hero-form-row { display: flex; gap: 0.5rem; }
+.hero-form input { flex: 1; background: white; border: 1px solid var(--border2); color: var(--ink); font-family: var(--mono); font-size: 13px; padding: 0.75rem 1rem; outline: none; transition: border-color 0.2s; }
+.hero-form input:focus { border-color: var(--accent); }
+.hero-form input::placeholder { color: var(--muted); }
+.btn-primary { background: var(--accent); color: white; border: none; font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.75rem 1.4rem; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+.btn-primary:hover { background: var(--accent2); }
+.hero-note { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.08em; }
+.hero-live { font-family: var(--mono); font-size: 10px; color: var(--muted); display: flex; align-items: center; gap: 0.5rem; }
+.hero-live a { color: var(--accent); text-decoration: none; }
+.hero-live a:hover { text-decoration: underline; }
+.live-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: livepulse 2s ease-in-out infinite; flex-shrink: 0; }
+@keyframes livepulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero-stats { display: grid; grid-template-columns: repeat(4,1fr); margin-top: 4rem; border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); max-width: 1200px; }
+.stat-item { padding: 1.5rem 0; border-right: 1px solid var(--border2); }
+.stat-item:last-child { border-right: none; }
+.stat-num { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--accent); display: block; line-height: 1; }
+.stat-label { font-family: var(--mono); font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.3rem; display: block; }
+
+/* SECTIONS */
+section { padding: 6rem 3rem; }
+.section-eyebrow { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1rem; }
+.section-eyebrow::before { content: '§'; color: var(--accent); }
+.section-title { font-family: var(--serif); font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.1; margin-bottom: 1rem; }
+.section-title em { font-style: italic; color: var(--accent); }
+
+/* HOW */
+.how-section { background: var(--bg2); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
+.how-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 0; margin-top: 3.5rem; border: 1px solid var(--border2); max-width: 1200px; }
+.how-card { padding: 2.2rem; border-right: 1px solid var(--border2); background: var(--bg); transition: background 0.2s; }
+.how-card:last-child { border-right: none; }
+.how-card:hover { background: white; }
+.how-num { font-family: var(--serif); font-size: 2.5rem; font-weight: 400; font-style: italic; color: var(--accent); display: block; line-height: 1; margin-bottom: 1rem; opacity: 0.5; }
+.how-card h3 { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.7rem; line-height: 1.3; }
+.how-card p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+/* PROMPT */
+.prompt-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; max-width: 1100px; }
+.prompt-doc { background: white; border: 1px solid var(--border2); box-shadow: 4px 4px 0 var(--bg3), 8px 8px 0 var(--border); overflow: hidden; }
+.prompt-doc-header { background: var(--bg3); padding: 1rem 1.5rem; border-bottom: 1px solid var(--border2); display: flex; align-items: center; justify-content: space-between; }
+.prompt-doc-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+.prompt-doc-stamp { font-family: var(--serif); font-size: 10px; color: var(--accent); font-style: italic; }
+.prompt-doc-body { padding: 2rem; }
+.prompt-doc-label { font-family: var(--mono); font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-bottom: 1.2rem; display: block; }
+.prompt-doc-text { font-family: var(--mono); font-size: 13px; line-height: 1.9; color: var(--ink2); }
+.prompt-doc-text .hl { color: var(--accent); font-weight: 600; }
+.prompt-cursor { display: inline-block; width: 7px; height: 14px; background: var(--accent); margin-left: 2px; animation: blink 1.1s step-end infinite; vertical-align: middle; opacity: 0.7; }
+@keyframes blink { 0%,100%{opacity:0.7} 50%{opacity:0} }
+
+/* ABOUT */
+.about-section { background: var(--bg2); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
+.about-inner { max-width: 720px; }
+.about-body { font-size: 1.05rem; color: var(--ink2); line-height: 1.9; margin-top: 2rem; }
+.about-body p { margin-bottom: 1.3rem; }
+.about-body strong { color: var(--ink); font-weight: 600; }
+.about-pullquote { font-family: var(--serif); font-size: 1.3rem; font-style: italic; color: var(--accent2); border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 2rem 0; background: rgba(184,150,62,0.05); line-height: 1.6; }
+
+/* PRICING */
+.tiers-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: 1.5rem; margin-top: 3.5rem; max-width: 1000px; }
+.tier-card { background: white; border: 1px solid var(--border2); padding: 2.2rem; position: relative; transition: box-shadow 0.2s; }
+.tier-card:hover { box-shadow: 4px 4px 0 var(--border2); }
+.tier-card.featured { border-color: var(--accent); border-width: 2px; }
+.tier-badge { position: absolute; top: -1px; right: 1.5rem; background: var(--accent); color: white; font-family: var(--mono); font-size: 9px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; padding: 0.3rem 0.8rem; }
+.tier-name { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+.tier-price { font-family: var(--serif); font-size: 3rem; line-height: 1; margin-bottom: 0.3rem; font-weight: 700; }
+.tier-price span { font-family: var(--body); font-size: 0.95rem; color: var(--muted); font-weight: 400; }
+.tier-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+.tier-features { list-style: none; margin-bottom: 2rem; }
+.tier-features li { font-size: 0.88rem; color: var(--ink2); padding: 0.4rem 0; display: flex; gap: 0.7rem; align-items: baseline; }
+.tier-features li::before { content: '—'; color: var(--accent); font-family: var(--mono); flex-shrink: 0; }
+.btn-secondary { display: block; width: 100%; background: transparent; border: 1px solid var(--border2); color: var(--ink); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.8rem; cursor: pointer; transition: border-color 0.2s, background 0.2s; text-decoration: none; text-align: center; }
+.btn-secondary:hover { border-color: var(--accent); background: rgba(184,150,62,0.05); }
+.btn-accent { background: var(--accent); color: white; border-color: var(--accent); }
+.btn-accent:hover { background: var(--accent2) !important; border-color: var(--accent2) !important; color: white !important; }
+
+/* SOCIAL */
+.social-section { background: var(--bg2); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
+.social-intro { font-size: 1rem; color: var(--muted); max-width: 520px; margin-bottom: 3rem; }
+.social-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 0; max-width: 1100px; border: 1px solid var(--border2); }
+.social-card { background: var(--bg); border-right: 1px solid var(--border2); padding: 1.8rem; text-decoration: none; display: flex; flex-direction: column; gap: 0.8rem; transition: background 0.2s; }
+.social-card:last-child { border-right: none; }
+.social-card:hover { background: white; }
+.social-platform { font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.social-handle { font-family: var(--serif); font-size: 1.1rem; font-style: italic; color: var(--ink); }
+.social-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+.social-arrow { font-family: var(--mono); font-size: 14px; color: var(--accent); margin-top: auto; }
+
+/* CTA */
+.cta-section { background: var(--ink); color: var(--bg); text-align: center; padding: 8rem 3rem; }
+.cta-section .section-eyebrow { color: rgba(250,248,243,0.4); justify-content: center; }
+.cta-section .section-eyebrow::before { background: rgba(250,248,243,0.4); content: ''; width: 32px; height: 1px; }
+.cta-section .section-title { color: var(--bg); margin: 0 auto 1rem; }
+.cta-section .section-title em { color: var(--accent); }
+.cta-sub { color: rgba(250,248,243,0.55); max-width: 400px; margin: 0 auto; font-size: 1rem; }
+.cta-form { display: flex; gap: 0.5rem; flex-wrap: wrap; justify-content: center; max-width: 480px; margin: 2.5rem auto 0; }
+.cta-form input { flex: 1; min-width: 220px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: var(--bg); font-family: var(--mono); font-size: 13px; padding: 0.8rem 1rem; outline: none; transition: border-color 0.2s; }
+.cta-form input:focus { border-color: var(--accent); }
+.cta-form input::placeholder { color: rgba(250,248,243,0.35); }
+.cta-note { font-family: var(--mono); font-size: 10px; color: rgba(250,248,243,0.35); margin-top: 1rem; letter-spacing: 0.08em; }
+
+/* FOOTER */
+footer { padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; border-top: 1px solid var(--border2); background: var(--bg2); }
+.footer-logo { font-family: var(--serif); font-size: 14px; font-weight: 700; font-style: italic; color: var(--ink); text-decoration: none; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--ink); }
+.footer-copy { font-family: var(--mono); font-size: 10px; color: var(--muted); width: 100%; text-align: center; margin-top: 1rem; padding-top: 1.5rem; border-top: 1px solid var(--border); letter-spacing: 0.06em; }
+
+.success-msg { display: none; font-family: var(--mono); font-size: 12px; color: var(--accent); margin-top: 0.5rem; }
+
+@media (max-width: 768px) {
+  nav { padding: 0 1.2rem; }
+  section { padding: 4rem 1.2rem; }
+  .hero { padding: 7rem 1.2rem 4rem; }
+  .hero-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero-stats { grid-template-columns: repeat(2,1fr); }
+  .stat-item { border-bottom: 1px solid var(--border2); }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .prompt-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+  footer { padding: 1.5rem 1.2rem; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="logo">Prompted Finance</a>
+  <div class="nav-links">
+    <a href="#how">How it works</a>
+    <a href="#about">About</a>
+    <a href="#premium">Premium</a>
+    <a href="#subscribe" class="nav-cta">Subscribe free →</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-eyebrow">AI × Personal Finance &nbsp;·&nbsp; <a href="#">Issue #01 is live →</a></div>
+  <div class="hero-grid">
+    <div>
+      <h1>Your paycheck deserves<br/><em>smarter tools</em><br/>than a spreadsheet.</h1>
+    </div>
+    <div class="hero-right">
+      <p class="hero-sub">Every week, one prompt, one strategy, one move you can actually make — to understand your money better with AI. Takes 5 minutes. No finance degree required.</p>
+      <form class="hero-form" onsubmit="handleSubscribe(event, 'hero-success')">
+        <div class="hero-form-row">
+          <input type="email" placeholder="your@email.com" required />
+          <button type="submit" class="btn-primary">Get it →</button>
+        </div>
+        <p class="hero-note">// No spam. Unsubscribe anytime.</p>
+        <div class="hero-live"><span class="live-pulse"></span>&nbsp;<a href="#">Issue #01 is live — read it →</a></div>
+        <p class="success-msg" id="hero-success">✓ You're in. Check your inbox.</p>
+      </form>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-num">5min</span><span class="stat-label">Weekly read</span></div>
+    <div class="stat-item"><span class="stat-num">1</span><span class="stat-label">Prompt per issue</span></div>
+    <div class="stat-item"><span class="stat-num">$0</span><span class="stat-label">To subscribe</span></div>
+    <div class="stat-item"><span class="stat-num">Weekly</span><span class="stat-label">New issue</span></div>
+  </div>
+</section>
+
+<section id="how" class="how-section">
+  <div class="section-eyebrow">How it works</div>
+  <h2 class="section-title">One email. Real moves. <em>No fluff.</em></h2>
+  <div class="how-grid">
+    <div class="how-card"><span class="how-num">I</span><h3>One Actionable Prompt</h3><p>A single, tested AI prompt you can run in ChatGPT or Claude tonight. Budget audit, expense breakdown, savings gap analysis.</p></div>
+    <div class="how-card"><span class="how-num">II</span><h3>5 Minutes, Max</h3><p>Built for people with real lives. Read it on your commute. Use it that same night. No homework, no prerequisites required.</p></div>
+    <div class="how-card"><span class="how-num">III</span><h3>No Jargon, No Noise</h3><p>Written for people who use AI at work but never applied it to their money. Plain language. Immediate clarity. Always practical.</p></div>
+    <div class="how-card"><span class="how-num">IV</span><h3>AI Speaks Yours</h3><p>Each prompt works in 32 languages. Doesn't matter where you're from — these prompts work for you.</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="prompt-inner">
+    <div>
+      <div class="section-eyebrow">Example prompt</div>
+      <h2 class="section-title">This is what lands<br/>in your <em>inbox</em></h2>
+      <p style="color:var(--muted);font-size:0.95rem;margin-top:1rem;line-height:1.85;">Each issue includes one ready-to-use prompt. Open your AI tool, paste it in, answer the questions — and you'll have a clearer picture of your money in under five minutes.</p>
+    </div>
+    <div class="prompt-doc">
+      <div class="prompt-doc-header">
+        <span class="prompt-doc-title">prompted_finance_week_01.md</span>
+        <span class="prompt-doc-stamp">Spending Audit</span>
+      </div>
+      <div class="prompt-doc-body">
+        <div class="prompt-doc-label">&gt;_ Week 01 — Spending Audit</div>
+        <div class="prompt-doc-text">
+          Analyze my last <span class="hl">30 days</span> of transactions below.<br/><br/>
+          Group by category. Flag the top <span class="hl">3 areas</span><br/>
+          where I'm overspending vs. my income.<br/><br/>
+          Give me <span class="hl">2 concrete cuts</span> I can make this week<br/>
+          without changing my lifestyle significantly.<br/><br/>
+          [paste your transactions here]<span class="prompt-cursor"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about" class="about-section">
+  <div class="about-inner">
+    <div class="section-eyebrow">About</div>
+    <h2 class="section-title">Why I built <em>this</em></h2>
+    <div class="about-body">
+      <p>I'm an independent developer and systems thinker who spends most of my time building automated tools — trading bots, content pipelines, mobile apps. I apply the same logic to everything: <strong>find the inefficiency, build the system, remove the friction.</strong></p>
+      <p>Personal finance was broken for me in the same way it's broken for most people. Not because the math is hard — but because no one hands you the right questions.</p>
+      <div class="about-pullquote">If you can ask an AI to write your emails, you can ask it to fix your finances.</div>
+      <p>Prompted Finance is that. <strong>One prompt a week, tested on real numbers, designed to take less time than your morning coffee.</strong> No courses to buy, no spreadsheets to maintain, no finance degree required.</p>
+    </div>
+  </div>
+</section>
+
+<section id="premium">
+  <div class="section-eyebrow">Plans</div>
+  <h2 class="section-title">Start free.<br/><em>Go deeper</em> when ready.</h2>
+  <div class="tiers-grid">
+    <div class="tier-card">
+      <p class="tier-name">Free</p>
+      <div class="tier-price">$0 <span>/ forever</span></div>
+      <p class="tier-desc">The weekly prompt, delivered to your inbox. No catch.</p>
+      <ul class="tier-features">
+        <li>1 prompt per week via email</li>
+        <li>Works with ChatGPT or Claude</li>
+        <li>Plain-language explanations</li>
+        <li>32 language compatible</li>
+      </ul>
+      <a href="#subscribe" class="btn-secondary">Subscribe free</a>
+    </div>
+    <div class="tier-card featured">
+      <div class="tier-badge">Coming soon</div>
+      <p class="tier-name">Premium</p>
+      <div class="tier-price">$9 <span>/ month</span></div>
+      <p class="tier-desc">The full toolkit for people serious about using AI to run their money.</p>
+      <ul class="tier-features">
+        <li>Everything in Free</li>
+        <li>Full prompt library (all past issues)</li>
+        <li>Monthly deep-dive prompt pack</li>
+        <li>Exclusive video walkthroughs</li>
+        <li>Priority community access</li>
+      </ul>
+      <a href="#subscribe" class="btn-secondary btn-accent">Notify me when live</a>
+    </div>
+    <div class="tier-card">
+      <p class="tier-name">Starter Pack</p>
+      <div class="tier-price">$19 <span>one-time</span></div>
+      <p class="tier-desc">The 30 foundational prompts that cover the full personal finance stack.</p>
+      <ul class="tier-features">
+        <li>30 curated prompts (PDF + .md)</li>
+        <li>Budget audit system</li>
+        <li>Savings gap analyzer</li>
+        <li>Debt payoff planner prompt</li>
+      </ul>
+      <a href="#subscribe" class="btn-secondary">Coming soon</a>
+    </div>
+  </div>
+</section>
+
+<section id="social" class="social-section">
+  <div class="section-eyebrow">Follow along</div>
+  <h2 class="section-title">More than<br/>an <em>inbox.</em></h2>
+  <p class="social-intro">Short-form tips on TikTok and Instagram, deeper takes on YouTube, and daily finance + AI threads on X.</p>
+  <div class="social-grid">
+    <a href="https://youtube.com/@promptedfinance" target="_blank" class="social-card">
+      <div class="social-platform">YouTube</div>
+      <div class="social-handle">@PromptedFinance</div>
+      <p class="social-desc">In-depth walkthroughs. Watch the prompt work on real scenarios.</p>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="https://tiktok.com/@promptedfinance" target="_blank" class="social-card">
+      <div class="social-platform">TikTok</div>
+      <div class="social-handle">@PromptedFinance</div>
+      <p class="social-desc">60-second AI money moves. Quick, actionable, no filler.</p>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="https://instagram.com/promptedfinance" target="_blank" class="social-card">
+      <div class="social-platform">Instagram</div>
+      <div class="social-handle">@PromptedFinance</div>
+      <p class="social-desc">Visual breakdowns, prompt cards, and behind-the-scenes.</p>
+      <span class="social-arrow">↗</span>
+    </a>
+    <a href="https://x.com/promptedfinance" target="_blank" class="social-card">
+      <div class="social-platform">X / Twitter</div>
+      <div class="social-handle">@PromptedFinance</div>
+      <p class="social-desc">Daily threads on AI, personal finance, and the intersection of both.</p>
+      <span class="social-arrow">↗</span>
+    </a>
+  </div>
+</section>
+
+<section class="cta-section" id="subscribe">
+  <div class="section-eyebrow" style="justify-content:center;">Get started</div>
+  <h2 class="section-title" style="max-width:600px;margin:0 auto 1rem;">Stop wondering<br/>where the money <em>went.</em></h2>
+  <p class="cta-sub">Join the people using AI to finally understand their finances — one prompt at a time.</p>
+  <form class="cta-form" onsubmit="handleSubscribe(event, 'cta-success')">
+    <input type="email" placeholder="your@email.com" required />
+    <button type="submit" class="btn-primary">Send me the first prompt →</button>
+  </form>
+  <p class="success-msg" id="cta-success" style="display:none;text-align:center;margin-top:1rem;">✓ You're in. Check your inbox.</p>
+  <p class="cta-note">// No spam. Unsubscribe anytime.</p>
+</section>
+
+<footer>
+  <a href="#" class="footer-logo">Prompted Finance</a>
+  <div class="footer-links">
+    <a href="mailto:hi@promptedfinance.com">Contact</a>
+    <a href="#">Privacy</a>
+    <a href="#">Unsubscribe</a>
+  </div>
+  <p class="footer-copy">© 2026 Prompted Finance — AI × Your Money</p>
+</footer>
+
+<script>
+async function handleSubscribe(e, successId) {
+  e.preventDefault();
+  const form = e.target;
+  const email = form.querySelector('input[type="email"]').value;
+  const btn = form.querySelector('button');
+  btn.disabled = true; btn.textContent = 'Subscribing...';
+  try {
+    const body = new URLSearchParams({ email_address: email });
+    await fetch('https://app.kit.com/forms/9335297/subscriptions', {
+      method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: body.toString(),
+    });
+  } catch(err) { console.error(err); }
+  form.style.display = 'none';
+  document.getElementById(successId).style.display = 'block';
+}
+</script>
+</body>
+</html>
